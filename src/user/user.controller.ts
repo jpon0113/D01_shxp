@@ -1,10 +1,20 @@
-import { Controller, Get, Query, Request, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  Request,
+  Post,
+  Body,
+  Render,
+  Response,
+} from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
   @Get()
+  @Render('default/user')
   index() {
-    return 'user';
+    return { name: 'J胖' };
   }
 
   @Get('add')
@@ -16,9 +26,14 @@ export class UserController {
   editData(@Request() req) {
     return '@Request';
   }
-  //通过@Body()装饰器获取post传值
+
   @Post('create')
   create(@Body() body) {
     return '@Body';
+  }
+  @Post('doAdd')
+  doAdd(@Body() body, @Response() res) {
+    console.log(body);
+    res.redirect('/user');
   }
 }
