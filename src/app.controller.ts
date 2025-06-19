@@ -11,13 +11,8 @@ export class AppController {
     return { name: 'J胖', age: '20' };
   }
 
-  @Get('news')
-  getNews(): string {
-    return 'custom fn';
-  }
-
-  @Get('product')
-  getProduct(): string {
-    return this.appService.getProduct();
-  }
+  // @Get('product')
+  // getProduct(): string {
+  //   return this.appService.getProduct();
+  // }
 }
