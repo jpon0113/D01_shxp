@@ -1,5 +1,13 @@
-import { Controller, Get, Param, Query, Render } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  Render,
+  UsePipes,
+} from '@nestjs/common';
 import { NewsService } from './news.service';
+import { NewsPipe } from '../pipe/news.pipe';
 
 @Controller('news')
 export class NewsController {
@@ -20,10 +28,11 @@ export class NewsController {
   // }
 
   @Get('add')
+  @UsePipes(new NewsPipe())
   addData(@Query('id') id) {
     // Query.id
-    console.log(id);
-    return 'Query';
+    console.log('controller user/add - id', id);
+    return id;
   }
 
   // http://localhost:3000/news/123 | http://localhost:3000/news/xxxxx

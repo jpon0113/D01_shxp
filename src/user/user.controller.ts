@@ -7,13 +7,23 @@ import {
   Body,
   Render,
   Response,
+  UsePipes,
 } from '@nestjs/common';
+import * as Joi from 'joi';
+import { UserPipe } from '../pipe/user.pipe';
+
+const userSchema = Joi.object().keys({
+  name: Joi.string().required(),
+  age: Joi.number().integer().min(6).max(66).required(),
+});
 
 @Controller('user')
 export class UserController {
   @Get()
+  @UsePipes(new UserPipe(userSchema))
   @Render('default/user')
-  index() {
+  index(@Query() info) {
+    console.log('info', info);
     return { name: 'J胖' };
   }
 
