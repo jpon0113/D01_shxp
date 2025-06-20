@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
 import * as cookieParser from 'cookie-parser';
+import * as session from 'express-session';
 
 import { AppModule } from './app.module';
 
@@ -17,7 +18,14 @@ async function bootstrap() {
   app.setViewEngine('ejs');
   // cookie
   app.use(cookieParser('this signed cookies'));
-  // app.use(cookieParser());
+  // session
+  app.use(
+    session({
+      secret: 'session cat',
+      cookie: { maxAge: 90000, httpOnly: true },
+      rolling: true,
+    }),
+  );
 
   await app.listen(3000);
 }

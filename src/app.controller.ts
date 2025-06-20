@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Request } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -7,8 +7,15 @@ export class AppController {
 
   @Get()
   @Render('default/index')
-  getHello() {
+  index(@Request() req): any {
+    req.session.username = 'session user';
     return { name: 'J胖', age: '20' };
+  }
+
+  @Get('session')
+  session(@Request() req): string {
+    console.log(req.session.username);
+    return 'get user';
   }
 
   // @Get('product')
