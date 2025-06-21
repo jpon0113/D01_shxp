@@ -8,4 +8,8 @@ export class AppService {
   getProduct(): string {
     return 'product';
   }
+
+  getConfig() {
+    return { domain: 'www.xxx.com' };
+  }
 }
